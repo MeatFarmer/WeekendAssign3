@@ -19,15 +19,34 @@ app.get ('/', function(req, res){
 }); // end base url
 
 // testPost
-app.post( '/', function( req, res ){
+app.post( '/math', function( req, res ){
   console.log( 'testPost url hit. req.body:', req.body );
   // *** //
   // assemble object to return
-  var objectToReturn = {
-    field0: 'I came from testPost on server'
-  }; // end object to return
-  // return objectToReturn
-  res.send( objectToReturn );
+  var maths = req.body;
+
+    var results = '';
+    var x = parseInt(maths.x);
+    console.log('var x : ', x);
+    var y = parseInt(maths.y);
+    console.log('var y: ', y);
+
+    if(maths.type === '+'){
+      results = Number(x) + Number(y);
+      console.log(results);
+    } else if(maths.type === '-'){
+      results = x-y;
+    } else if(maths.type === '*'){
+      results = x*y;
+    } else if(maths.type === '/'){
+      results = x / y;
+    }
+
+  answer.push(results);
+  res.send({answer: results});
+  console.log('answer array: ', answer);
 });
+
+var answer = [];
 
 app.use (express.static('public'));
